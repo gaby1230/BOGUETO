@@ -1,0 +1,1929 @@
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+    --black: #030303;
+    --black2: #080808;
+    --white: #ffffff;
+    --gray: #a9a9a9;
+    --red: #ff1744;
+    --red2: #ff003c;
+    --blue: #00d9ff;
+    --gold: #ffd166;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HTML / BODY
+========================================================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Orbitron', sans-serif;
+    overflow-x: hidden;
+}
+
+
+/* Cuadrícula de fondo */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.08;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.08) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.08) 1px,
+            transparent 1px
+        );
+
+    background-size: 60px 60px;
+}
+
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+#loader {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #171717 0%,
+            #020202 65%
+        );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+
+    transition:
+        opacity 1s ease,
+        visibility 1s ease;
+}
+
+#loader.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-crown {
+    color: var(--gold);
+    font-size: 45px;
+
+    animation:
+        crownPulse 1.2s infinite alternate;
+}
+
+#loader strong {
+    font-size: clamp(35px, 7vw, 80px);
+    letter-spacing: 8px;
+    text-align: center;
+}
+
+#loader em {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--red);
+    font-size: 20px;
+    letter-spacing: 5px;
+    text-align: center;
+}
+
+.loader-line {
+    width: 240px;
+    height: 3px;
+
+    background: #222;
+
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.loader-line span {
+    display: block;
+    height: 100%;
+    width: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--red),
+            white,
+            var(--red),
+            transparent
+        );
+
+    animation: loader 1.5s infinite;
+}
+
+#loader small {
+    color: #777;
+    letter-spacing: 3px;
+    text-align: center;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+#intro {
+    min-height: 100vh;
+
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(255, 0, 50, 0.13),
+            transparent 30%
+        ),
+        linear-gradient(
+            115deg,
+            #010101,
+            #101010,
+            #030303
+        );
+}
+
+#intro::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 0, 55, 0.08),
+            transparent
+        );
+
+    animation:
+        backgroundMove 5s linear infinite;
+}
+
+
+/* =========================================================
+   LUCES
+========================================================= */
+
+.light {
+    position: absolute;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 0 10px white,
+        0 0 25px var(--blue),
+        0 0 50px var(--blue);
+
+    animation:
+        starMove linear infinite;
+}
+
+.light-1 {
+    left: 15%;
+    top: 20%;
+    animation-duration: 5s;
+}
+
+.light-2 {
+    left: 70%;
+    top: 30%;
+    animation-duration: 7s;
+}
+
+.light-3 {
+    left: 45%;
+    top: 75%;
+    animation-duration: 6s;
+}
+
+
+/* =========================================================
+   LÍNEAS DE VELOCIDAD
+========================================================= */
+
+.speed-lines {
+    position: absolute;
+    inset: 0;
+
+    overflow: hidden;
+    opacity: 0.4;
+}
+
+.speed-lines::before,
+.speed-lines::after {
+    content: "";
+
+    position: absolute;
+
+    width: 120%;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--red),
+            transparent
+        );
+
+    animation:
+        speed 2s linear infinite;
+}
+
+.speed-lines::before {
+    top: 35%;
+    left: -10%;
+}
+
+.speed-lines::after {
+    top: 65%;
+    left: -10%;
+
+    animation-delay: 0.8s;
+}
+
+
+/* =========================================================
+   MOTO DEL INTRO
+========================================================= */
+
+.intro-bike {
+    position: absolute;
+
+    right: -250px;
+    bottom: 20%;
+
+    width: 300px;
+    height: 150px;
+
+    animation:
+        bikeRun 7s linear infinite;
+
+    z-index: 1;
+}
+
+.bike-symbol {
+    font-size: 90px;
+
+    filter:
+        drop-shadow(0 0 10px var(--red))
+        drop-shadow(0 0 30px var(--red));
+
+    transform: scaleX(-1);
+}
+
+.bike-light {
+    position: absolute;
+
+    right: 20px;
+    top: 60px;
+
+    width: 120px;
+    height: 4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            white
+        );
+
+    box-shadow:
+        0 0 20px white,
+        0 0 50px var(--blue);
+
+    transform: rotate(-5deg);
+}
+
+
+/* =========================================================
+   HUD
+========================================================= */
+
+.hud {
+    position: absolute;
+
+    top: 35px;
+
+    font-size: 11px;
+    letter-spacing: 3px;
+
+    color: #777;
+
+    z-index: 5;
+}
+
+.hud.left {
+    left: 40px;
+}
+
+.hud.right {
+    right: 40px;
+    text-align: right;
+}
+
+
+/* =========================================================
+   TEXTO INTRO
+========================================================= */
+
+.introText {
+    position: relative;
+
+    z-index: 4;
+
+    text-align: center;
+
+    padding: 20px;
+}
+
+.introText small {
+    color: var(--red);
+    letter-spacing: 7px;
+
+    animation:
+        letterGlow 2s infinite alternate;
+}
+
+.introText h1 {
+    font-size: clamp(50px, 12vw, 160px);
+
+    line-height: 0.85;
+
+    letter-spacing: 10px;
+
+    margin-top: 20px;
+
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.3),
+        0 0 40px rgba(255, 0, 50, 0.2);
+
+    animation:
+        titleFloat 4s ease-in-out infinite;
+}
+
+.introText h2 {
+    font-family: 'Permanent Marker', cursive;
+
+    color: var(--red);
+
+    font-size: clamp(30px, 6vw, 75px);
+
+    transform: rotate(-4deg);
+
+    text-shadow:
+        0 0 10px var(--red),
+        0 0 30px var(--red);
+
+    animation:
+        neonText 2s infinite alternate;
+}
+
+.intro-phrase {
+    margin: 30px 0;
+
+    color: #ccc;
+
+    font-family: 'Permanent Marker', cursive;
+
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   BOTÓN ENTRAR
+========================================================= */
+
+#enter {
+    border: 1px solid white;
+
+    background: transparent;
+
+    color: white;
+
+    padding: 16px 35px;
+
+    font-family: 'Orbitron', sans-serif;
+
+    letter-spacing: 4px;
+
+    cursor: pointer;
+
+    transition: 0.4s;
+
+    position: relative;
+
+    overflow: hidden;
+
+    z-index: 1;
+}
+
+#enter::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background: var(--red);
+
+    transform: translateX(-100%);
+
+    transition: 0.4s;
+
+    z-index: -1;
+}
+
+#enter:hover::before {
+    transform: translateX(0);
+}
+
+#enter:hover {
+    box-shadow:
+        0 0 20px var(--red),
+        0 0 50px rgba(255, 0, 50, 0.4);
+
+    border-color: var(--red);
+}
+
+
+/* =========================================================
+   FLECHA
+========================================================= */
+
+.down {
+    margin-top: 35px;
+
+    font-size: 30px;
+
+    color: var(--red);
+
+    animation:
+        down 1s infinite alternate;
+}
+
+
+/* =========================================================
+   SITIO PRINCIPAL
+========================================================= */
+
+#site.hidden {
+    display: none;
+}
+
+#site {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+aside {
+    width: 230px;
+    min-height: 100vh;
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+
+    z-index: 100;
+
+    background:
+        rgba(2, 2, 2, 0.9);
+
+    border-right: 1px solid #222;
+
+    padding: 35px 25px;
+
+    backdrop-filter: blur(15px);
+}
+
+.logo {
+    font-size: 28px;
+
+    font-weight: 900;
+
+    color: white;
+
+    margin-bottom: 60px;
+}
+
+.logo span {
+    display: block;
+
+    font-size: 10px;
+
+    color: var(--red);
+
+    letter-spacing: 3px;
+
+    margin-top: 5px;
+}
+
+
+/* =========================================================
+   NAVEGACIÓN
+========================================================= */
+
+nav {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 25px;
+}
+
+nav a {
+    color: #777;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    transition: 0.3s;
+
+    display: inline-block;
+}
+
+nav a:hover {
+    color: white;
+
+    transform: translateX(8px);
+
+    text-shadow:
+        0 0 10px var(--red);
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main {
+    margin-left: 230px;
+
+    width: calc(100% - 230px);
+}
+
+section {
+    min-height: 100vh;
+
+    padding: 100px 7%;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+label {
+    color: var(--red);
+
+    letter-spacing: 4px;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   HERO / INICIO
+========================================================= */
+
+.hero {
+    display: grid;
+
+    grid-template-columns:
+        1.2fr 0.8fr;
+
+    gap: 50px;
+
+    align-items: center;
+}
+
+.photo {
+    position: relative;
+
+    height: 70vh;
+
+    overflow: hidden;
+}
+
+.photo img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    filter:
+        grayscale(0.2)
+        contrast(1.15);
+
+    transition: 1s;
+}
+
+.photo:hover img {
+    transform: scale(1.05);
+}
+
+.photo-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            transparent 50%,
+            rgba(255, 0, 50, 0.3)
+        );
+}
+
+.photo span {
+    position: absolute;
+
+    bottom: 25px;
+    left: 25px;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.card {
+    padding: 50px;
+
+    border: 1px solid #222;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.04),
+            rgba(255, 0, 50, 0.03)
+        );
+
+    box-shadow:
+        inset 0 0 40px rgba(255, 255, 255, 0.02);
+}
+
+.card h3,
+.card h2 {
+    font-size:
+        clamp(35px, 5vw, 70px);
+
+    line-height: 0.95;
+
+    margin: 25px 0;
+}
+
+.card p {
+    color: #aaa;
+
+    line-height: 1.9;
+
+    margin-bottom: 20px;
+}
+
+.card i {
+    color: var(--red);
+
+    font-family:
+        'Permanent Marker',
+        cursive;
+
+    font-size: 24px;
+}
+
+.crown {
+    color: var(--gold);
+
+    font-size: 25px;
+}
+
+
+/* =========================================================
+   GALERÍA
+========================================================= */
+
+.section-header {
+    max-width: 700px;
+
+    margin-bottom: 60px;
+}
+
+.section-header h2 {
+    font-size:
+        clamp(45px, 7vw, 100px);
+
+    margin: 15px 0;
+
+    line-height: 0.9;
+}
+
+.lead {
+    color: #888;
+
+    max-width: 650px;
+
+    line-height: 1.8;
+}
+
+.gallery {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+.gallery-item {
+    height: 300px;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: 0.7s;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+
+    filter:
+        brightness(0.7);
+}
+
+.gallery-item span {
+    position: absolute;
+
+    bottom: 15px;
+    right: 15px;
+
+    font-size: 12px;
+
+    color: white;
+}
+
+
+/* =========================================================
+   MOTOS
+========================================================= */
+
+#motos {
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(255, 0, 40, 0.08),
+            transparent 40%
+        );
+}
+
+.motor-bg {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: 0.35;
+}
+
+.road-line {
+    position: absolute;
+
+    height: 1px;
+
+    width: 150px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--red),
+            transparent
+        );
+
+    animation:
+        roadMove 3s linear infinite;
+}
+
+.line-1 {
+    top: 30%;
+}
+
+.line-2 {
+    top: 50%;
+
+    animation-delay: 1s;
+}
+
+.line-3 {
+    top: 70%;
+
+    animation-delay: 2s;
+}
+
+.racing-bike {
+    position: absolute;
+
+    font-size: 80px;
+
+    top: 45%;
+
+    right: -150px;
+
+    filter:
+        drop-shadow(0 0 15px var(--red))
+        drop-shadow(0 0 40px var(--red));
+
+    animation:
+        raceAcross 8s linear infinite;
+}
+
+
+/* =========================================================
+   TARJETAS DE MOTOS
+========================================================= */
+
+.bikes {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 30px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+.bike-card {
+    position: relative;
+
+    min-height: 480px;
+
+    overflow: hidden;
+
+    background: #050505;
+
+    border: 1px solid #252525;
+
+    transition: 0.5s;
+}
+
+.bike-card:hover {
+    transform:
+        translateY(-10px)
+        scale(1.01);
+
+    border-color: var(--red);
+
+    box-shadow:
+        0 20px 60px
+        rgba(255, 0, 50, 0.2);
+}
+
+.bike-image {
+    position: absolute;
+
+    inset: 0;
+}
+
+.bike-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: 0.8s;
+}
+
+.bike-card:hover
+.bike-image img {
+    transform: scale(1.08);
+
+    filter:
+        brightness(0.75);
+}
+
+.bike-glow {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.98),
+            rgba(0, 0, 0, 0.15),
+            transparent
+        );
+}
+
+.bike-message {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    padding: 30px;
+
+    z-index: 2;
+}
+
+.bike-number {
+    color: var(--red);
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+}
+
+.bike-message b {
+    display: block;
+
+    margin: 8px 0 15px;
+
+    font-size: 20px;
+
+    letter-spacing: 2px;
+}
+
+.bike-message p {
+    color: #ddd;
+
+    line-height: 1.7;
+
+    font-family:
+        'Permanent Marker',
+        cursive;
+
+    font-size: 15px;
+
+    max-width: 600px;
+}
+
+.center {
+    text-align: center;
+}
+
+.racing-text {
+    margin-top: 50px;
+
+    letter-spacing: 5px;
+
+    color: #777;
+
+    animation:
+        racingText 2s infinite alternate;
+}
+
+
+/* =========================================================
+   MENSAJE
+========================================================= */
+
+.message {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 60px;
+
+    align-items: center;
+}
+
+.message-photo {
+    height: 650px;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.message-photo img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.message-light {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent,
+            rgba(255, 0, 50, 0.2),
+            transparent
+        );
+
+    animation:
+        lightSweep 4s infinite;
+}
+
+.message .card h2 {
+    color: white;
+}
+
+
+/* =========================================================
+   FINAL
+========================================================= */
+
+.final {
+    min-height: 80vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 0, 50, 0.2),
+            transparent 45%
+        ),
+        #020202;
+}
+
+.final-content {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 900px;
+}
+
+.final-crown {
+    display: block;
+
+    color: var(--gold);
+
+    font-size: 50px;
+
+    margin-bottom: 25px;
+
+    animation:
+        crownPulse 1.5s infinite alternate;
+}
+
+.final i {
+    font-family:
+        'Permanent Marker',
+        cursive;
+
+    color: #aaa;
+
+    font-size: 20px;
+
+    line-height: 1.8;
+}
+
+.final h3 {
+    margin-top: 30px;
+
+    font-size:
+        clamp(40px, 8vw, 110px);
+
+    line-height: 0.9;
+
+    letter-spacing: 5px;
+}
+
+.final h3 span {
+    color: var(--red);
+
+    font-family:
+        'Permanent Marker',
+        cursive;
+
+    font-size: 0.65em;
+}
+
+.final p {
+    margin-top: 35px;
+
+    color: #666;
+
+    letter-spacing: 4px;
+}
+
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+.reveal {
+    opacity: 0;
+
+    transform:
+        translateY(50px);
+
+    transition:
+        opacity 0.9s ease,
+        transform 0.9s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* =========================================================
+   ANIMACIONES
+========================================================= */
+
+@keyframes loader {
+    from {
+        transform:
+            translateX(-100%);
+    }
+
+    to {
+        transform:
+            translateX(100%);
+    }
+}
+
+
+@keyframes crownPulse {
+    from {
+        transform: scale(1);
+
+        text-shadow:
+            0 0 5px var(--gold);
+    }
+
+    to {
+        transform: scale(1.15);
+
+        text-shadow:
+            0 0 10px var(--gold),
+            0 0 30px var(--gold);
+    }
+}
+
+
+@keyframes titleFloat {
+    0%,
+    100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(-10px);
+    }
+}
+
+
+@keyframes neonText {
+    from {
+        text-shadow:
+            0 0 5px var(--red);
+    }
+
+    to {
+        text-shadow:
+            0 0 10px var(--red),
+            0 0 30px var(--red),
+            0 0 60px
+            rgba(255, 0, 50, 0.7);
+    }
+}
+
+
+@keyframes letterGlow {
+    from {
+        opacity: 0.6;
+    }
+
+    to {
+        opacity: 1;
+
+        text-shadow:
+            0 0 15px var(--red);
+    }
+}
+
+
+@keyframes down {
+    from {
+        transform:
+            translateY(0);
+    }
+
+    to {
+        transform:
+            translateY(12px);
+    }
+}
+
+
+@keyframes backgroundMove {
+    from {
+        transform:
+            translateX(-20%);
+    }
+
+    to {
+        transform:
+            translateX(20%);
+    }
+}
+
+
+@keyframes starMove {
+    0% {
+        transform:
+            translateX(0)
+            translateY(0)
+            scale(0.5);
+
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translateX(300px)
+            translateY(-150px)
+            scale(1.5);
+
+        opacity: 0;
+    }
+}
+
+
+@keyframes speed {
+    from {
+        transform:
+            translateX(-100%);
+    }
+
+    to {
+        transform:
+            translateX(100%);
+    }
+}
+
+
+@keyframes bikeRun {
+    0% {
+        right: -300px;
+
+        transform:
+            scale(0.7);
+    }
+
+    45% {
+        right: 45%;
+
+        transform:
+            scale(1);
+    }
+
+    100% {
+        right: 110%;
+
+        transform:
+            scale(1.2);
+    }
+}
+
+
+@keyframes roadMove {
+    from {
+        transform:
+            translateX(-300px);
+
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    to {
+        transform:
+            translateX(120vw);
+
+        opacity: 0;
+    }
+}
+
+
+@keyframes raceAcross {
+    from {
+        right: -200px;
+    }
+
+    to {
+        right: 110%;
+    }
+}
+
+
+@keyframes racingText {
+    from {
+        color: #555;
+
+        letter-spacing: 4px;
+    }
+
+    to {
+        color: var(--red);
+
+        letter-spacing: 7px;
+
+        text-shadow:
+            0 0 15px var(--red);
+    }
+}
+
+
+@keyframes lightSweep {
+    0% {
+        transform:
+            translateX(-100%);
+    }
+
+    50%,
+    100% {
+        transform:
+            translateX(100%);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    aside {
+        width: 100%;
+        min-height: auto;
+        height: 70px;
+
+        padding: 15px 20px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+    }
+
+
+    .logo {
+        margin: 0;
+
+        font-size: 20px;
+
+        flex-shrink: 0;
+    }
+
+
+    nav {
+        flex-direction: row;
+
+        gap: 12px;
+
+        align-items: center;
+    }
+
+
+    nav a {
+        font-size: 9px;
+
+        white-space: nowrap;
+    }
+
+
+    main {
+        margin-left: 0;
+
+        width: 100%;
+
+        padding-top: 70px;
+    }
+
+
+    .hero,
+    .message {
+        grid-template-columns: 1fr;
+    }
+
+
+    .gallery {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .bikes {
+        grid-template-columns: 1fr;
+    }
+
+
+    .photo {
+        height: 55vh;
+    }
+
+
+    .message-photo {
+        height: 550px;
+    }
+}
+
+
+/* =========================================================
+   MÓVIL
+========================================================= */
+
+@media (max-width: 600px) {
+
+    body::before {
+        background-size: 40px 40px;
+
+        opacity: 0.05;
+    }
+
+
+    section {
+        padding:
+            80px 20px;
+    }
+
+
+    /* -------------------------
+       LOADER
+    ------------------------- */
+
+    #loader strong {
+        font-size: 36px;
+
+        letter-spacing: 4px;
+    }
+
+    #loader em {
+        font-size: 16px;
+
+        letter-spacing: 3px;
+    }
+
+    .loader-line {
+        width: 200px;
+    }
+
+
+    /* -------------------------
+       HUD
+    ------------------------- */
+
+    .hud {
+        font-size: 8px;
+
+        letter-spacing: 2px;
+
+        top: 20px;
+    }
+
+    .hud.left {
+        left: 15px;
+    }
+
+    .hud.right {
+        right: 15px;
+    }
+
+
+    /* -------------------------
+       INTRO
+    ------------------------- */
+
+    .introText {
+        width: 100%;
+    }
+
+    .introText small {
+        font-size: 9px;
+
+        letter-spacing: 4px;
+    }
+
+    .introText h1 {
+        font-size:
+            clamp(42px, 15vw, 75px);
+
+        letter-spacing: 3px;
+
+        margin-top: 18px;
+    }
+
+    .introText h2 {
+        font-size: 35px;
+    }
+
+    .intro-phrase {
+        font-size: 16px;
+
+        margin:
+            25px 0;
+    }
+
+    #enter {
+        padding:
+            14px 25px;
+
+        font-size: 11px;
+
+        letter-spacing: 3px;
+    }
+
+    .intro-bike {
+        opacity: 0.5;
+
+        bottom: 15%;
+    }
+
+
+    /* -------------------------
+       SIDEBAR / MENÚ
+    ------------------------- */
+
+    aside {
+        height: 65px;
+
+        padding:
+            12px 15px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .logo span {
+        font-size: 7px;
+
+        letter-spacing: 2px;
+    }
+
+    nav {
+        gap: 7px;
+    }
+
+    nav a {
+        font-size: 0;
+
+        letter-spacing: 0;
+
+        width: 30px;
+        height: 30px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        border: 1px solid #333;
+
+        transition:
+            0.3s;
+    }
+
+    nav a:hover {
+        transform: none;
+
+        border-color: var(--red);
+
+        color: var(--red);
+    }
+
+    /*
+       Ocultamos el texto y dejamos
+       el símbolo ▣ visible.
+    */
+
+    nav a::before {
+        content: "▣";
+
+        font-size: 15px;
+
+        color: #777;
+    }
+
+    nav a:hover::before {
+        color: var(--red);
+    }
+
+    main {
+        padding-top: 65px;
+    }
+
+
+    /* -------------------------
+       HERO
+    ------------------------- */
+
+    .hero {
+        gap: 30px;
+    }
+
+    .photo {
+        height: 50vh;
+    }
+
+    .photo span {
+        left: 15px;
+        bottom: 15px;
+
+        font-size: 8px;
+
+        letter-spacing: 2px;
+    }
+
+
+    /* -------------------------
+       CARDS
+    ------------------------- */
+
+    .card {
+        padding:
+            30px 22px;
+    }
+
+    .card h3,
+    .card h2 {
+        font-size:
+            clamp(32px, 10vw, 55px);
+    }
+
+    .card p {
+        font-size: 13px;
+
+        line-height: 1.8;
+    }
+
+
+    /* -------------------------
+       GALERÍA
+    ------------------------- */
+
+    .section-header {
+        margin-bottom: 40px;
+    }
+
+    .section-header h2 {
+        font-size:
+            clamp(42px, 14vw, 70px);
+    }
+
+    .lead {
+        font-size: 13px;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .gallery-item {
+        height: 350px;
+    }
+
+
+    /* -------------------------
+       MOTOS
+    ------------------------- */
+
+    .bikes {
+        gap: 20px;
+    }
+
+    .bike-card {
+        min-height: 430px;
+    }
+
+    .bike-message {
+        padding: 22px;
+    }
+
+    .bike-message b {
+        font-size: 17px;
+    }
+
+    .bike-message p {
+        font-size: 13px;
+
+        line-height: 1.6;
+    }
+
+    .racing-bike {
+        font-size: 60px;
+    }
+
+    .racing-text {
+        font-size: 10px;
+
+        line-height: 2;
+
+        letter-spacing: 3px;
+    }
+
+
+    /* -------------------------
+       MENSAJE
+    ------------------------- */
+
+    .message {
+        gap: 30px;
+    }
+
+    .message-photo {
+        height: 450px;
+    }
+
+
+    /* -------------------------
+       FINAL
+    ------------------------- */
+
+    .final {
+        min-height: 75vh;
+    }
+
+    .final-crown {
+        font-size: 40px;
+    }
+
+    .final i {
+        font-size: 16px;
+    }
+
+    .final h3 {
+        font-size:
+            clamp(38px, 14vw, 70px);
+
+        letter-spacing: 3px;
+    }
+
+    .final p {
+        font-size: 9px;
+
+        letter-spacing: 2px;
+
+        line-height: 1.8;
+    }
+}
+
+
+/* =========================================================
+   MÓVILES MUY PEQUEÑOS
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .logo {
+        font-size: 16px;
+    }
+
+    nav {
+        gap: 4px;
+    }
+
+    nav a {
+        width: 27px;
+        height: 27px;
+    }
+
+    nav a::before {
+        font-size: 13px;
+    }
+
+    .introText h1 {
+        font-size: 40px;
+
+        letter-spacing: 1px;
+    }
+
+    .introText h2 {
+        font-size: 30px;
+    }
+
+    .photo {
+        height: 45vh;
+    }
+
+    .gallery-item {
+        height: 300px;
+    }
+
+    .bike-card {
+        min-height: 400px;
+    }
+}
+
+
+/* =========================================================
+   REDUCIR ANIMACIONES SI EL USUARIO LO PREFIERE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
